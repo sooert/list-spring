@@ -78,4 +78,12 @@ public class ViewController {
 		return "update";
 	}
 
+	/**
+	 * 게시글 수정 페이지 이동 http://127.0.0.1:8080/write/edit
+	 */
+	@GetMapping("edit")
+	public String edit() {
+		return "edit";
+	}
+
 }

@@ -1,0 +1,49 @@
+/* 읽기 전용 필드 스타일 */
+input[readonly], textarea[readonly] {
+	background-color: #f8f9fa;
+	cursor: default;
+}
+
+/* 카테고리 필드 */
+#category {
+	width: 150px !important;
+	background-color: #e9ecef;
+	text-align: center;
+	font-weight: 500;
+}
+
+/* 게시글 정보 영역 */
+.post-info {
+	background-color: #f8f9fa;
+	padding: 15px;
+	border-radius: 8px;
+	margin: 20px 0;
+}
+
+.post-info span {
+	color: #6c757d;
+	font-size: 14px;
+	margin-right: 20px;
+}
+
+/* 버튼 스타일 */
+.post-actions button {
+	padding: 12px 25px;
+	font-size: 15px;
+	font-weight: 500;
+	border-radius: 8px;
+	border: none;
+	cursor: pointer;
+	color: white;
+	transition: all 0.3s ease;
+}
+
+#backToList { background-color: #6c757d; }
+#editPost { background-color: #007bff; }
+#deletePost { background-color: #dc3545; }
+
+.post-actions button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+

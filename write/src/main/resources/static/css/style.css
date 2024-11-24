@@ -1,30 +1,36 @@
 /* 변수 설정 */
 :root {
-	--color-mray: #c6c6c6;
-	--color-gray: #e0dddc;
+    --color-gray: #e0dddc;
+    --color-mray: #c6c6c6;
+    --color-default: #eee7e7;
+	--primary-color: var(--color-mray);
+	--secondary-color: var(--color-gray);
+	--text-color: #2c3e50;
+	--border-color: var(--color-gray);
+	--hover-color: #a2a2a2;
 	--page-w: 1200px;
 	--inner-w: 1000px;
 } 
 /* 전체 스타일 */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
     margin: 0;
     padding: 0;
-    color: #333;
+    color: var(--text-color);
+    background-color: #f8f9fa;
 }
 
 /* 헤더 스타일 */
 header {
-    background: #f4f4f4;
-    padding: 20px;
-    border-bottom: 1px solid #ddd;
-    text-align: center;
+    background: white;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 header h1 {
     margin: 0;
-    font-size: 1.8rem;
-    font-weight: bold;
+    font-size: 2rem;
+    color: var(--primary-color);
 }
 
 header nav ul {
@@ -42,8 +48,14 @@ header nav ul li {
 
 header nav ul li a {
     text-decoration: none;
-    color: #555;
+    color: var(--text-color);
     font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    color: var(--primary-color);
 }
 
 /* 메인 스타일 */
@@ -61,6 +73,10 @@ h2 {
 
 /* 탭 스타일 */
 .tabs {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -68,38 +84,65 @@ h2 {
 }
 
 .tabs a {
+    color: var(--text-color);
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
     text-decoration: none;
-    color: #555;
-    padding: 10px;
     font-size: 1rem;
 }
 
 .tabs a.active {
-    font-weight: bold;
-    color: #000;
-    border-bottom: 2px solid #000;
+    background: var(--color-mray);
+    color: white;
+    font-weight: 500;
+    border: none;
+}
+
+.tabs a:hover:not(.active) {
+    background: var(--color-gray);
 }
 
 /* 게시판 스타일 */
 .board {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border: none;
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
 
 .board thead {
-    background: #f4f4f4;
+    background: var(--secondary-color);
 }
 
 .board th, .board td {
-    padding: 10px;
+    padding: 1rem;
     text-align: center;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     font-size: 0.9rem;
 }
 
+.board th {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.board td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
 .board tbody tr:hover {
-    background: #f9f9f9;
+    background: var(--color-default);
+    transition: background 0.3s ease;
+}
+
+.board tbody tr:focus {
+    background: var(--color-default);
+    outline: none;
 }
 
 /* 검색창 스타일 */
@@ -112,29 +155,41 @@ h2 {
 }
 
 .search-bar input {
-    padding: 5px 10px;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
     font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+}
+
+.search-bar input:focus {
+    border-color: var(--primary-color);
+    outline: none;
 }
 
 .search-bar button {
-    padding: 6px 12px;
+    background: var(--color-mray);
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
     font-size: 1rem;
     border: none;
-    background: #555;
-    color: #fff;
-    border-radius: 4px;
+    color: white;
     cursor: pointer;
 }
 
+.search-bar button:hover {
+    background: var(--hover-color);
+}
+
 .write-button {
-    padding: 6px 12px;
+    background: var(--color-mray);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
     font-size: 1rem;
     border: none;
-    background: var(--color-mray);
-    color: #fff;
-    border-radius: 4px;
     cursor: pointer;
 } 
 
@@ -144,7 +199,8 @@ h2 {
 }
 
 .write-button:hover {
-    background: #a2a2a2;
+    background: var(--hover-color);
+    transform: translateY(-1px);
 }
 
 .r-write-button:hover {
@@ -152,10 +208,20 @@ h2 {
 }
 
 /* 푸터 스타일 */
-    footer {
+footer {
+    background: white;
+    padding: 2rem;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
     text-align: center;
-    padding: 10px;
-    background: #f4f4f4;
-    border-top: 1px solid #ddd;
     margin-top: 20px;
+}
+
+footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--hover-color);
 }

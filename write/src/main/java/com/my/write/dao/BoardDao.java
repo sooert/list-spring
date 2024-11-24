@@ -32,8 +32,8 @@ public class BoardDao {
 	}
 
 	// 게시글 수정
-	public int update(Board board) {
-		return s.update("BoardMapper.update", board);
+	public void update(Board board) {
+		s.update("BoardMapper.update", board);
 	}
 
 	// 게시글 삭제

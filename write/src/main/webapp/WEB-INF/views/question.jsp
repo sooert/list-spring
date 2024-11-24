@@ -35,7 +35,7 @@
                     <th>작성시간</th>
                 </tr>
             </thead>
-            <<tbody id="board-body">
+            <tbody id="board-body">
                 <!-- 여기에 동적으로 데이터가 들어갈 예정 -->
             </tbody>
         </table>

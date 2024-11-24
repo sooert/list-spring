@@ -30,8 +30,8 @@ public class BoardService {
 	}
 
 	// 게시글 수정
-	public int update(Board board) {
-		return boardDao.update(board);
+	public void update(Board board) {
+		boardDao.update(board);
 	}
 
 	// 게시글 삭제

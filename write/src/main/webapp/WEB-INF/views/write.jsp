@@ -9,6 +9,7 @@
     <title>WRITE</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/write.css">
     <script src="js/write.js"></script>
 </head>
@@ -28,7 +29,7 @@
               <div class="form-group">
                 <label for="category">카테고리*</label>
                 <span>
-                    <select id="category" name="category">
+                    <select id="category" name="category" style="text-align: center;">
                         <option value="공지사항">공지사항</option>
                         <option value="자유게시판">자유게시판</option>
                         <option value="Q&A">Q&A</option>

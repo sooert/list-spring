@@ -98,24 +98,39 @@ public class BoardController {
 
 	// 게시글 수정
 	@PostMapping("update")
-	public String update(@RequestParam(value = "board_idx") int board_idx,
-			@RequestParam(value = "name") String name, @RequestParam(value = "content") String content,
-			@RequestParam(value = "category") String category, HttpSession session) {
+	public String update(
+		@RequestParam(value = "board_idx") int board_idx,
+		@RequestParam(value = "name") String name, 
+		@RequestParam(value = "content") String content,
+		@RequestParam(value = "category") String category, 
+		HttpSession session) {
 
+		// 로그인 확인
 		User me = (User) session.getAttribute("me");
 		if (me == null) {
 			return "로그인이 필요합니다";
 		}
-		
-		String user_nick = me.getNick();
 
+		// 기존 게시글 조회
+		Board existingBoard = boardService.findByIdx(board_idx);
+		if (existingBoard == null) {
+			return "게시글을 찾을 수 없습니다";
+		}
+
+		// 작성자 확인
+		if (!existingBoard.getUser_nick().equals(me.getNick())) {
+			return "수정 권한이 없습니다";
+		}
+
+		// 게시글 수정
 		Board board = new Board();
 		board.setBoard_idx(board_idx);
 		board.setName(name);
 		board.setContent(content);
 		board.setCategory(category);
-		board.setUser_nick(user_nick);
-		boardService.update(board);		
+		board.setUser_nick(me.getNick());
+		
+		boardService.update(board);        
 
 		return "ok";
 	}
@@ -145,5 +160,28 @@ public class BoardController {
 	public String unlike(@RequestParam(value = "board_idx") int board_idx) {
 		boardService.deleteLike(board_idx);
 		return "ok";
+	}
+
+	// 게시글 상세 조회
+	@GetMapping("detail")
+	public Board getDetail(@RequestParam(value = "idx") int board_idx) {
+		try {
+			Board board = boardService.findByIdx(board_idx);
+			if (board == null) {
+				System.out.println("게시글을 찾을 수 없습니다. idx: " + board_idx);
+				return null;
+			}
+			return board;
+		} catch (Exception e) {
+			System.err.println("게시글 상세 조회 중 오류 발생: " + e.getMessage());
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	// 게시글 수정
+	@GetMapping("edit")
+	public Board edit(@RequestParam(value = "idx") int board_idx) {
+		return boardService.findByIdx(board_idx);
 	}
 }

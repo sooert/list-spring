@@ -86,4 +86,10 @@ public class UserController {
 		return "ok";
 	}
 
+	// 로그인한 사용자 정보 가져오기
+	@GetMapping("getLoginUser")
+	public User getLoginUser(HttpSession session) {
+		return (User) session.getAttribute("me");
+	}
+
 }
