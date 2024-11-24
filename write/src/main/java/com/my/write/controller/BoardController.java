@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.my.write.entity.Board;
 import com.my.write.entity.User;
 import com.my.write.service.BoardService;
+import com.my.write.service.LikeService;
 import com.my.write.service.UserService;
 
 @RestController
@@ -26,12 +27,14 @@ public class BoardController {
 	@Autowired
 	UserService userService;
 
+	@Autowired
+	LikeService likeService;
+
 	// 게시글 추가
 	@PostMapping("create")
-	public String create(@RequestParam(value = "name") String name,
-			@RequestParam(value = "content") String content, @RequestParam(value = "category") String category,
-			HttpSession session) {
-		
+	public String create(@RequestParam(value = "name") String name, @RequestParam(value = "content") String content,
+			@RequestParam(value = "category") String category, HttpSession session) {
+
 		// 로그인 여부 확인
 		User me = (User) session.getAttribute("me");
 		if (me == null) {
@@ -98,12 +101,9 @@ public class BoardController {
 
 	// 게시글 수정
 	@PostMapping("update")
-	public String update(
-		@RequestParam(value = "board_idx") int board_idx,
-		@RequestParam(value = "name") String name, 
-		@RequestParam(value = "content") String content,
-		@RequestParam(value = "category") String category, 
-		HttpSession session) {
+	public String update(@RequestParam(value = "board_idx") int board_idx, @RequestParam(value = "name") String name,
+			@RequestParam(value = "content") String content, @RequestParam(value = "category") String category,
+			HttpSession session) {
 
 		// 로그인 확인
 		User me = (User) session.getAttribute("me");
@@ -129,8 +129,8 @@ public class BoardController {
 		board.setContent(content);
 		board.setCategory(category);
 		board.setUser_nick(me.getNick());
-		
-		boardService.update(board);        
+
+		boardService.update(board);
 
 		return "ok";
 	}
@@ -142,30 +142,14 @@ public class BoardController {
 		return "ok";
 	}
 
-	// 게시글 좋아요 추가
-	@PostMapping("like")
-	public String like(@RequestParam(value = "board_idx") int board_idx, HttpSession session) {
-		User me = (User) session.getAttribute("me");
-		if (me == null) {
-			return "로그인이 필요합니다";
-		}
-		
-		String user_nick = me.getNick();
-		boardService.addLike(board_idx, user_nick);
-		return "ok";
-	}
-
-	// 게시글 좋아요 삭제
-	@PostMapping("unlike")
-	public String unlike(@RequestParam(value = "board_idx") int board_idx) {
-		boardService.deleteLike(board_idx);
-		return "ok";
-	}
-
 	// 게시글 상세 조회
 	@GetMapping("detail")
 	public Board getDetail(@RequestParam(value = "idx") int board_idx) {
 		try {
+			// 조회수 증가
+			boardService.increaseViewCount(board_idx);
+			
+			// 업데이트된 게시글 정보를 가져옴
 			Board board = boardService.findByIdx(board_idx);
 			if (board == null) {
 				System.out.println("게시글을 찾을 수 없습니다. idx: " + board_idx);
@@ -183,5 +167,16 @@ public class BoardController {
 	@GetMapping("edit")
 	public Board edit(@RequestParam(value = "idx") int board_idx) {
 		return boardService.findByIdx(board_idx);
+	}
+
+	// 조회수 증가
+	@PostMapping("increaseViewCount")
+	public String increaseViewCount(@RequestParam(value = "board_idx") int board_idx) {
+		try {
+			boardService.increaseViewCount(board_idx);
+			return "ok";
+		} catch (Exception e) {
+			return "error";
+		}
 	}
 }

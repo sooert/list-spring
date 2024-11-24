@@ -86,4 +86,12 @@ public class ViewController {
 		return "edit";
 	}
 
+	/**
+	 * 좋아요 페이지 이동 http://127.0.0.1:8080/write/like
+	 */
+	@GetMapping("like")
+	public String like() {
+		return "like";
+	}
+
 }

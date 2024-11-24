@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/detail.css">
-    <script src="js/detail.js"></script>
+    <link rel="stylesheet" href="css/like.css">
+    <script src="js/like.js"></script>
 </head>
 <body>
     <!-- 헤더 파일 포함 -->
@@ -45,7 +45,7 @@
                 <button id="backToList" style="margin-right: 10px; margin-bottom: 10px;">목록으로</button>
                 <button id="editPost" style="margin-right: 10px; margin-bottom: 10px;">수정</button>
                 <button id="likePost" style="margin-right: 10px; margin-bottom: 10px;">
-                    <i class="fa-regular fa-heart" style="margin-right: 5px; color: #f5adad;"></i> 
+                    <i class="fa-regular fa-heart"></i> 
                     <span id="likeCount">0</span>
                 </button>
             </div>

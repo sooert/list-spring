@@ -44,19 +44,20 @@ function loadPosts(category) {
             
             if (!filteredBoards || filteredBoards.length === 0) {
                 console.log("게시글 데이터가 비어있음");
-                $('#board-body').html('<tr><td colspan="5" style="text-align: center;">등록된 게시글이 없습니다.</td></tr>');
+                $('#board-body').html('<tr><td colspan="6" style="text-align: center;">등록된 게시글이 없습니다.</td></tr>');
                 return;
             }
             
             let html = '';
             filteredBoards.forEach(function(board, index) {
                 html += `
-                    <tr onclick="location.href='./detail?idx=${board.board_idx}'" style="cursor: pointer;">
+                    <tr onclick="viewPost(${board.board_idx})" style="cursor: pointer;">
                         <td>${index + 1}</td>
                         <td>${board.category}</td>
                         <td>${board.name}</td>
                         <td>${board.user_nick}</td>
                         <td>${board.created_date}</td>
+                        <td>${board.views}</td>
                     </tr>
                 `;
             });
@@ -64,7 +65,12 @@ function loadPosts(category) {
         },
         error: function(e) {
             console.error("게시글 목록 로드 실패:", e);
-            $('#board-body').html('<tr><td colspan="5" style="text-align: center; color: red;">게시글 목록을 불러오는데 실패했습니다.</td></tr>');
+            $('#board-body').html('<tr><td colspan="6" style="text-align: center; color: red;">게시글 목록을 불러오는데 실패했습니다.</td></tr>');
         }
     });
+}
+
+// 게시글 조회 함수 수정
+function viewPost(boardIdx) {
+    window.location.href = `./detail?idx=${boardIdx}`;
 }

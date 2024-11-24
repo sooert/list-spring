@@ -38,18 +38,6 @@ input[readonly], textarea[readonly] {
 	transition: all 0.3s ease;
 }
 
-/* 셀렉트 박스 스타일 */
-select {
-    width: 150px !important;
-    background-color: #e9ecef;
-    text-align: center;
-    font-weight: 500;
-    height: auto;
-    padding: 15px;
-    border: 1px solid var(--color-mray);
-    border-radius: 8px;
-}
-
 #backToList { background-color: #6c757d; }
 #editPost { background-color: #007bff; }
 #deletePost { background-color: #dc3545; }
@@ -57,10 +45,5 @@ select {
 .post-actions button:hover {
 	transform: translateY(-2px);
 	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-/* 좋아요 버튼 내의 숫자 스타일 */
-#likeCount {
-    color: #a4a3a3;
 }
 

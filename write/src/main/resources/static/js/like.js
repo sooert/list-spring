@@ -47,16 +47,8 @@ $(document).ready(function() {
             location.href = './login';
             return;
         }
-        
         const boardIdx = urlParams.get('idx');
-        const $likeButton = $(this);
-        
-        // 이미 좋아요를 눌렀는지 확인
-        if ($likeButton.hasClass('liked')) {
-            deleteLike(boardIdx, currentUserNick);
-        } else {
-            addLike(boardIdx, currentUserNick);
-        }
+        addLike(boardIdx, currentUserNick);
     });
 
 
@@ -75,7 +67,6 @@ function loadBoardDetail(boardIdx) {
                 $('#user-nick').text(`작성자: ${board.user_nick}`);
                 $('#view-count').text(`조회수: ${board.views}`);
                 $('#created-date').text(`작성일: ${board.created_date}`);
-                updateLikeCount(boardIdx);
                 
                 // 세션에서 현재 로그인한 사용자 정보 확인
                 $.ajax({
@@ -119,7 +110,7 @@ function checkLikeStatus(boardIdx, userNick) {
         success: function(isLiked) {
             if (isLiked) {  
                 $('#likePost').addClass('liked');
-                $('#likePost i').removeClass('fa-regular').addClass('fa-solid');
+                alert('이미 좋아요를 눌렀습니다.');
             }
         }
     });
@@ -128,25 +119,15 @@ function checkLikeStatus(boardIdx, userNick) {
 // 좋아요 추가
 function addLike(boardIdx, userNick) {
     $.ajax({
-        url: './api/like/save',
+        url: `./api/like/save?board_idx=${boardIdx}&user_nick=${userNick}`,
         type: 'POST',
-        data: {
-            board_idx: boardIdx,
-            user_nick: userNick,
-            count: 1
-        },
         success: function() {
             updateLikeCount(boardIdx);
             $('#likePost').addClass('liked');
-            $('#likePost i').removeClass('fa-regular').addClass('fa-solid');
+            alert('좋아요를 눌렀습니다.');
         },
-        error: function(xhr, status, error) {
-            if (xhr.status === 409) {
-                alert('이미 좋아요를 누르셨습니다.');
-            } else {
-                console.error('Error:', error);
-                alert('좋아요 추가 중 오류가 발생했습니다.');
-            }
+        error: function() {
+            alert('좋아요 추가 중 오류가 발생했습니다.');
         }
     });
 }
@@ -159,29 +140,10 @@ function deleteLike(boardIdx, userNick) {
         success: function() {
             updateLikeCount(boardIdx);
             $('#likePost').removeClass('liked');
-            $('#likePost i').removeClass('fa-solid').addClass('fa-regular');
+            alert('좋아요를 취소했습니다.');
         },
         error: function() {
             alert('좋아요 삭제 중 오류가 발생했습니다.');
-        }
-    });
-}
-
-// 좋아요 수 업데이트 함수 추가
-function updateLikeCount(boardIdx) {
-    $.ajax({
-        url: `./api/like/getByBoardIdx?board_idx=${boardIdx}`,
-        type: 'GET',
-        success: function(likes) {
-            if (likes) {
-                $('#likeCount').text(likes.count);
-            } else {
-                $('#likeCount').text('0');
-            }
-        },
-        error: function() {
-            console.error('좋아요 수 조회 중 오류가 발생했습니다.');
-            $('#likeCount').text('0');
         }
     });
 }

@@ -6,6 +6,7 @@ public class Board {
 	public String name = null;
 	public String category = null;
 	public String content = null;
+	public int views = 0;
 	public String created_date = null;
 
 	public int getBoard_idx() {
@@ -18,6 +19,14 @@ public class Board {
 
 	public String getUser_nick() {
 		return user_nick;
+	}
+
+	public int getViews() {
+		return views;
+	}
+
+	public void setViews(int views) {
+		this.views = views;
 	}
 
 	public void setUser_nick(String user_nick) {

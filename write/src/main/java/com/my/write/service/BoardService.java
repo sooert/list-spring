@@ -39,16 +39,6 @@ public class BoardService {
 		return boardDao.delete(board_idx);
 	}
 
-	// 게시글 좋아요 추가
-	public int addLike(int board_idx, String user_nick) {
-		return boardDao.addLike(board_idx, user_nick);
-	}
-
-	// 게시글 좋아요 삭제
-	public int deleteLike(int board_idx) {
-		return boardDao.deleteLike(board_idx);
-	}	
-
 	// 유저 찾기
 	public Board findById(String user_id) {
 		return boardDao.findById(user_id);
@@ -57,6 +47,11 @@ public class BoardService {
 	// 닉네임 찾기
 	public Board findByNick(String nick) {
 		return boardDao.findByNick(nick);
+	}
+
+	// 조회수 증가
+	public void increaseViewCount(int board_idx) {
+		boardDao.increaseViewCount(board_idx);
 	}
 
 }

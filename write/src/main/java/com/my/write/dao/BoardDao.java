@@ -1,9 +1,6 @@
 package com.my.write.dao;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -41,19 +38,6 @@ public class BoardDao {
 		return s.delete("BoardMapper.delete", board_idx);
 	}
 
-	// 게시글 좋아요 추가
-	public int addLike(int board_idx, String user_nick) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("board_idx", board_idx);
-		params.put("user_nick", user_nick);
-		return s.insert("BoardMapper.addLike", params);
-	}
-
-	// 게시글 좋아요 삭제
-	public int deleteLike(int board_idx) {
-		return s.delete("BoardMapper.deleteLike", board_idx);
-	}
-
 	// 유저 찾기
 	public Board findById(String user_id) {
 		return s.selectOne("BoardMapper.findById", user_id);
@@ -62,6 +46,11 @@ public class BoardDao {
 	// 닉네임 찾기
 	public Board findByNick(String nick) {
 		return s.selectOne("BoardMapper.findByNick", nick);
+	}
+
+	// 조회수 증가
+	public void increaseViewCount(int board_idx) {
+		s.update("BoardMapper.increaseViewCount", board_idx);
 	}
 
 }

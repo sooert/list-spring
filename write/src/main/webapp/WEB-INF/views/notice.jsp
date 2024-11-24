@@ -33,19 +33,11 @@
                     <th>제목</th>
                     <th>글쓴이</th>
                     <th>작성시간</th>
+                    <th>조회수</th>
                 </tr>
             </thead>
             <tbody id="board-body">
-                <!-- 게시글 항목 -->
-                <tr>
-                    <td>1</td>
-                    <td>공지사항</td>
-                    <td>오늘 날씨에 대해서 알려드립니다.</td>
-                    <td>풀터</td>
-                    <td>2024-11-23</td>
-                </tr>
-                <tbody id="board-body">
-                    <!-- 여기에 동적으로 데이터가 들어갈 예정 -->
+                <!-- 여기에 동적으로 데이터가 들어갈 예정 -->
                 </tbody>
             </tbody>
         </table>

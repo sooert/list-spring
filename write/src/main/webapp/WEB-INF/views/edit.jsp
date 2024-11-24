@@ -28,7 +28,14 @@
       
           <div class="form-group">
               <label for="category">카테고리</label>
-              <input type="text" id="category" name="category" style="width: 25%;" readonly/>
+              <span>
+                <select id="category" name="category" style="text-align: center;">
+                    <option value="공지사항">공지사항</option>
+                    <option value="자유게시판">자유게시판</option>
+                    <option value="Q&A">Q&A</option>
+                </select>
+              </span>
+              <span id="category-error" style="color: red;"></span>
           </div>
             
           <div class="form-group">
