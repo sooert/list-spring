@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.my.write.entity.Board;
 import com.my.write.entity.User;
 import com.my.write.service.BoardService;
+import com.my.write.service.ChatService;
 import com.my.write.service.LikeService;
 import com.my.write.service.UserService;
 
@@ -29,6 +30,9 @@ public class BoardController {
 
 	@Autowired
 	LikeService likeService;
+
+	@Autowired
+	ChatService chatService;
 
 	// 게시글 추가
 	@PostMapping("create")
@@ -148,7 +152,7 @@ public class BoardController {
 		try {
 			// 조회수 증가
 			boardService.increaseViewCount(board_idx);
-			
+
 			// 업데이트된 게시글 정보를 가져옴
 			Board board = boardService.findByIdx(board_idx);
 			if (board == null) {

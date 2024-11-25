@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ChatMapper">	
+	<!-- 댓글 찾기  -->
+	<select id="getLoginUser" parameterType="String" resultType="User">
+		SELECT * FROM `user` WHERE `nick` = #{nick}
+	</select>
+	
+	<!-- 댓글 좋아요 수 증가 감소 -->	
+	<update id="addLikeCount" parameterType="int">
+		UPDATE `chat` SET `like_count` = `like_count` + 1 WHERE `chat_idx` = #{chat_idx}
+	</update>
+
+	<update id="deleteLikeCount" parameterType="int">
+		UPDATE `chat` SET `like_count` = `like_count` - 1 WHERE `chat_idx` = #{chat_idx}
+	</update>
+
+		<!-- 댓글 좋아요 추가 -->
+	<insert id="addLike" parameterType="map">
+		INSERT INTO chat_likes 
+		(chat_idx, user_nick, created_date) 
+		VALUES 
+		(#{chat_idx}, #{user_nick}, NOW())
+	</insert>
+
+	<!-- 댓글 좋아요 삭제 -->
+	<delete id="deleteLike" parameterType="map">
+		DELETE FROM chat_likes 
+		WHERE chat_idx = #{chat_idx} AND user_nick = #{user_nick}
+	</delete>
+
+	<!-- 댓글 전체 찾기 -->
+	<select id="findAll" parameterType="int" resultType="Chat">
+		SELECT 
+			c.*,
+			(SELECT COUNT(*) 
+			 FROM chat_likes cl 
+			 WHERE cl.chat_idx = c.chat_idx) as like_count
+		FROM chat c 
+		WHERE c.board_idx = #{board_idx}
+		ORDER BY c.created_date DESC
+	</select>
+
+	<!-- 댓글 삭제  -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM `chat` WHERE `chat_idx` = #{chat_idx}
+	</delete>
+
+	<!-- 댓글 수정  -->
+	<update id="update" parameterType="Chat">
+		UPDATE `chat` SET `chat` = #{chat} WHERE `chat_idx` = #{chat_idx}
+	</update>
+
+	<!-- 댓글 유저 닉네임으로 찾기 -->
+	<select id="findByUserNick" parameterType="String" resultType="Chat">
+		SELECT * FROM `chat` WHERE `user_nick` = #{user_nick}
+	</select>
+
+	<!-- 댓글 추가 수정 -->
+	<insert id="save" parameterType="Chat">
+		INSERT INTO `chat`
+		(
+			board_idx,
+			user_nick,
+			chat,
+			like_count,
+			created_date
+		)
+		VALUES
+		(    
+			#{board_idx},
+			#{user_nick},
+			#{chat},
+			0,
+			NOW()
+		)
+	</insert>
+
+	<!-- 댓글 좋아요 수정 -->
+	<insert id="ChatLike" parameterType="Chat">
+		INSERT INTO `chat_likes`
+		(
+			chat_idx,
+			user_nick,
+			created_date
+		)
+		VALUES
+		(    
+			#{chat_idx},
+			#{user_nick},
+			NOW()
+		)
+	</insert>
+
+	<!-- 댓글 좋아요 상태 확인 -->
+	<select id="checkLikeStatus" parameterType="map" resultType="int">
+		SELECT COUNT(*) 
+		FROM chat_likes 
+		WHERE chat_idx = #{chat_idx} AND user_nick = #{user_nick}
+	</select>
+</mapper>

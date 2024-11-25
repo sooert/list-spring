@@ -1,7 +1,7 @@
 package com.my.write.entity;
 
 public class Like {
-	public int like_idx = 0; 
+	public int like_idx = 0;
 	public int board_idx = 0;
 	public String user_nick = null;
 	public int count = 0;

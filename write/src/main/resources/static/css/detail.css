@@ -60,7 +60,129 @@ select {
 }
 
 /* 좋아요 버튼 내의 숫자 스타일 */
-#likeCount {
+#likeCount, .comment-like-count {
     color: #a4a3a3;
 }
 
+/* 댓글 섹션 스타일 수정 */
+.comment-section {
+    width: 800px;
+    height: auto;
+    margin: -50px auto 50px auto;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.comment-container h2 {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f5adad;
+}
+
+/* 댓글 입력 폼 수정 */
+.comment-form {
+    position: relative;
+    background-color: white;
+    padding: 15px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.comment-form textarea {
+    flex: 1;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    resize: none;
+}
+
+.comment-form button {
+    background-color: #f5adad;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    height: fit-content;
+}
+
+.comment-form button:hover {
+    background-color: #f39999;
+}
+
+/* 댓글 아이템 스타일 수정 */
+.comment-item {
+    position: relative;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.comment-author {
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px;
+}
+
+.comment-content {
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.comment-date {
+    color: #888;
+    font-size: 0.9em;
+    display: block;
+}
+
+#chatCount {
+    color: #a4a3a3;
+}
+
+/* 댓글 좋아요 버튼 스타일 */
+.comment-like-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #f5adad;
+    padding: 5px;
+}
+
+.comment-like-button.liked i {
+    color: #ff6b6b;
+}
+
+.comment-like-count {
+    font-size: 0.9em;
+    color: #333;
+    margin-left: 5px;
+}
+
+.comment-info {
+    display: flex;
+    align-items: center;
+}
+
+.comment-delete-button {
+    background-color: #dc3545;
+    color: white;
+    position: absolute;
+    right: 0;
+    top: 15px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.my.write.entity.Like;
 import com.my.write.entity.User;
 import com.my.write.service.BoardService;
+import com.my.write.service.ChatService;
+import com.my.write.service.ChatLikeService;
 import com.my.write.service.LikeService;
 import com.my.write.service.UserService;
 
@@ -28,12 +30,16 @@ public class LikeController {
 	@Autowired
 	LikeService likeService;
 
+	@Autowired
+	ChatService chatService;
+
+	@Autowired
+	ChatLikeService chatLikeService;
+
 	// 좋아요 추가
 	@PostMapping("save")
-	public String save(
-			@RequestParam("user_nick") String user_nick, 
-			@RequestParam("board_idx") int board_idx,
-			@RequestParam(value = "count", defaultValue = "1") int count,  // count의 기본값 설정
+	public String save(@RequestParam("user_nick") String user_nick, @RequestParam("board_idx") int board_idx,
+			@RequestParam(value = "count", defaultValue = "1") int count, // count의 기본값 설정
 			HttpSession session) {
 
 		try {

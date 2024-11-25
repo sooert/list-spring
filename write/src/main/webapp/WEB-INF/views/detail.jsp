@@ -7,11 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="img/logo-icon.png">
     <title>DETAIL</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/detail.js"></script>
+    <script src="js/chat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/detail.css">
-    <script src="js/detail.js"></script>
 </head>
 <body>
     <!-- 헤더 파일 포함 -->
@@ -41,13 +42,38 @@
                 <span id="created-date"></span>
             </div>
               
-            <div class="post-actions">
-                <button id="backToList" style="margin-right: 10px; margin-bottom: 10px;">목록으로</button>
-                <button id="editPost" style="margin-right: 10px; margin-bottom: 10px;">수정</button>
-                <button id="likePost" style="margin-right: 10px; margin-bottom: 10px;">
-                    <i class="fa-regular fa-heart" style="margin-right: 5px; color: #f5adad;"></i> 
-                    <span id="likeCount">0</span>
-                </button>
+            <div class="post-actions" style="display: flex; justify-content: space-between;">
+                <div style="display: flex;">
+                    <button id="editPost" style="margin-right: 10px; margin-bottom: 10px;">수정</button>
+                    <button id="backToList" style="margin-right: 10px; margin-bottom: 10px;">목록으로</button>
+                </div>
+                <div style="display: flex;">
+                    <button id="likePost" style="margin-right: 10px; margin-bottom: 10px;">
+                        <i class="fa-regular fa-heart" style="margin-right: 5px; color: #f5adad;"></i> 
+                        <span id="likeCount">0</span>
+                    </button>
+                    <button id="chatPost" style="margin-right: 10px; margin-bottom: 10px;">
+                        <i class="fa-regular fa-comment" style="margin-right: 5px; color: #f5adad;"></i> 
+                        <span id="chatCount">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 댓글 찾기 위한 게시글 번호 숨김 처리 -->
+        <input type="hidden" id="boardIdx" value="${board.idx}">
+
+        <!-- 댓글 섹션 추가 -->
+        <div class="comment-section" style="display: none;">
+            <div class="comment-container">
+                <h2>댓글</h2>
+                <div class="comment-list">
+                    <!-- 댓글들이 여기에 동적으로 추가됨 -->
+                </div>
+                <div class="comment-form">
+                    <textarea id="commentText" placeholder="댓글을 입력하세요..."></textarea>
+                    <button id="submitComment">등록</button>
+                </div>
             </div>
         </div>
     </body>

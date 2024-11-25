@@ -27,6 +27,8 @@ $(document).ready(function() {
     // 게시글 데이터 로드
     if (boardIdx) {
         loadBoardDetail(boardIdx);
+        // 초기 댓글 수 로드 추가
+        updateCommentCount(boardIdx);
     }
 
     // 목록으로 돌아가기 버튼 이벤트
@@ -43,7 +45,6 @@ $(document).ready(function() {
     // 좋아요 버튼 이벤트
     $('#likePost').click(function() {
         if (!currentUserNick) {
-            alert('로그인이 필요합니다.');
             location.href = './login';
             return;
         }
@@ -58,7 +59,6 @@ $(document).ready(function() {
             addLike(boardIdx, currentUserNick);
         }
     });
-
 
 });
 
@@ -167,7 +167,7 @@ function deleteLike(boardIdx, userNick) {
     });
 }
 
-// 좋아요 수 업데이트 함수 추가
+// 좋아요 수 데이트 함수 추가
 function updateLikeCount(boardIdx) {
     $.ajax({
         url: `./api/like/getByBoardIdx?board_idx=${boardIdx}`,

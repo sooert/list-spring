@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.my.write.entity.User;
+import com.my.write.service.BoardService;
 import com.my.write.service.UserService;
 
 @RestController
@@ -19,6 +20,9 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	BoardService boardService;
 
 	// 회원 생성
 	@PostMapping("create")

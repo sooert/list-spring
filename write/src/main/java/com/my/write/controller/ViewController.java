@@ -1,10 +1,23 @@
 package com.my.write.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.my.write.entity.User;
+
 @Controller
 public class ViewController {
+
+	// 로그인 여부 확인 후 페이지 이동
+	private String getViewName(HttpSession session, String viewName) {
+		User me = (User) session.getAttribute("me");
+		if (me == null) {
+			return "redirect:/login";
+		}
+		return viewName;
+	}
 
 	/**
 	 * 홈 페이지 이동 http://127.0.0.1:8080/write/index
@@ -42,8 +55,8 @@ public class ViewController {
 	 * 글쓰기 페이지 이동 http://127.0.0.1:8080/write/write
 	 */
 	@GetMapping("write")
-	public String write() {
-		return "write";
+	public String write(HttpSession session) {
+		return getViewName(session, "write");
 	}
 
 	/**
@@ -71,27 +84,10 @@ public class ViewController {
 	}
 
 	/**
-	 * 게시글 수정&삭제 페이지 이동 http://127.0.0.1:8080/write/update
-	 */
-	@GetMapping("update")
-	public String update() {
-		return "update";
-	}
-
-	/**
 	 * 게시글 수정 페이지 이동 http://127.0.0.1:8080/write/edit
 	 */
 	@GetMapping("edit")
-	public String edit() {
-		return "edit";
+	public String edit(HttpSession session) {
+		return getViewName(session, "edit");
 	}
-
-	/**
-	 * 좋아요 페이지 이동 http://127.0.0.1:8080/write/like
-	 */
-	@GetMapping("like")
-	public String like() {
-		return "like";
-	}
-
 }
