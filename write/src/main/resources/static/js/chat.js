@@ -56,14 +56,16 @@ $(document).ready(function() {
             const isLiked = await $.ajax({
                 url: './api/chat/checkLikeStatus',
                 type: 'POST',
-                data: { chat_idx: commentId }
+                contentType: 'application/json',
+                data: JSON.stringify({ chat_idx: commentId })
             });
             
             if (isLiked > 0) {
                 await $.ajax({
                     url: './api/chat/deleteLike',
                     type: 'POST',
-                    data: { chat_idx: commentId }
+                    contentType: 'application/json',
+                    data: JSON.stringify({ chat_idx: commentId })
                 });
                 $icon.removeClass('fa-solid').addClass('fa-regular');
                 const currentCount = parseInt($count.text()) || 0;
@@ -72,7 +74,8 @@ $(document).ready(function() {
                 await $.ajax({
                     url: './api/chat/addLike',
                     type: 'POST',
-                    data: { chat_idx: commentId }
+                    contentType: 'application/json',
+                    data: JSON.stringify({ chat_idx: commentId })
                 });
                 $icon.removeClass('fa-regular').addClass('fa-solid');
                 const currentCount = parseInt($count.text()) || 0;
@@ -134,66 +137,49 @@ function submitComment() {
 // 댓글 목록 로드 함수 수정
 function loadComments(boardIdx) {
     return new Promise((resolve, reject) => {
-        // 먼저 현재 로그인한 사용자 정보를 가져옴
         $.ajax({
-            url: './api/user/getLoginUser',
+            url: `./api/chat/findAll?board_idx=${boardIdx}`,
             type: 'GET',
-            success: function(currentUser) {
-                // 댓글 목록을 가져오는 요청
-                $.ajax({
-                    url: `./api/chat/findAll?board_idx=${boardIdx}`,
-                    type: 'GET',
-                    success: async function(comments) {
-                        const $commentList = $('.comment-list');
-                        $commentList.empty();
+            success: function(comments) {
+                const $commentList = $('.comment-list');
+                $commentList.empty();
+                
+                if (comments && comments.length > 0) {
+                    for (const comment of comments) {
+                        const heartClass = comment.is_liked > 0 ? 'fa-solid' : 'fa-regular';
+                        const likedClass = comment.is_liked > 0 ? 'liked' : '';
                         
-                        if (comments && comments.length > 0) {
-                            for (const comment of comments) {
-                                // 각 댓글의 좋아요 상태 확인
-                                const isLiked = await $.ajax({
-                                    url: './api/chat/checkLikeStatus',
-                                    type: 'POST',
-                                    data: { chat_idx: comment.chat_idx }
-                                });
-                                
-                                const heartClass = isLiked > 0 ? 'fa-solid' : 'fa-regular';
-                                
-                                const commentHtml = `
-                                    <div class="comment-item" data-comment-id="${comment.chat_idx}">
-                                        <div class="comment-header">
-                                            <div class="comment-info">
-                                                <span class="comment-author">${comment.user_nick}</span>
-                                                <button class="comment-like-button ${isLiked > 0 ? 'liked' : ''}" data-comment-id="${comment.chat_idx}">
-                                                    <i class="${heartClass} fa-heart"></i>
-                                                    <span class="comment-like-count">${comment.like_count || 0}</span>
-                                                </button>
-                                            </div>
-                                            ${currentUser && currentUser.nick === comment.user_nick ? 
-                                                `<button class="comment-delete-button" data-comment-id="${comment.chat_idx}">삭제</button>` : ''}
-                                        </div>
-                                        <div class="comment-content">${comment.chat}</div>
-                                        <span class="comment-date">${comment.created_date}</span>
+                        const commentHtml = `
+                            <div class="comment-item" data-comment-id="${comment.chat_idx}">
+                                <div class="comment-header">
+                                    <div class="comment-info">
+                                        <span class="comment-author">${comment.user_nick}</span>
+                                        <button class="comment-like-button ${likedClass}" data-comment-id="${comment.chat_idx}">
+                                            <i class="${heartClass} fa-heart"></i>
+                                            <span class="comment-like-count">${comment.like_count || 0}</span>
+                                        </button>
                                     </div>
-                                `;
-                                $commentList.append(commentHtml);
-                            }
-                            
-                            attachCommentEventHandlers();
-                            $('#chatCount').text(comments.length);
-                        } else {
-                            $commentList.append('<p>등록된 댓글이 없습니다.</p>');
-                            $('#chatCount').text('0');
-                        }
-                        resolve(comments);
-                    },
-                    error: function(error) {
-                        console.error('댓글 로드 중 오류:', error);
-                        reject(error);
+                                    ${currentUserNick === comment.user_nick ? 
+                                        `<button class="comment-delete-button" data-comment-id="${comment.chat_idx}">삭제</button>` : ''}
+                                </div>
+                                <div class="comment-content">${comment.chat}</div>
+                                <span class="comment-date">${comment.created_date}</span>
+                            </div>
+                        `;
+                        $commentList.append(commentHtml);
                     }
-                });
+                    
+                    attachCommentEventHandlers();
+                    $('#chatCount').text(comments.length.toString());
+                } else {
+                    $commentList.append('<p>등록된 댓글이 없습니다.</p>');
+                    $('#chatCount').text('0');
+                }
+                resolve(comments);
             },
             error: function(error) {
-                console.error('사용자 정보 로드 중 오류:', error);
+                console.error('댓글 로드 중 오류:', error);
+                $('#chatCount').text('0');
                 reject(error);
             }
         });
@@ -206,8 +192,10 @@ function attachCommentEventHandlers() {
     $('.comment-like-button').off('click').on('click', async function() {
         const commentId = $(this).data('comment-id');
         const $button = $(this);
-        const $icon = $button.find('i');
-        const $count = $button.find('.comment-like-count');
+        const $icon = $button.find('i');            
+        const $count = $button.find('.comment-like-count'); 
+        const $commentItem = $button.closest('.comment-item');
+        const commentAuthor = $commentItem.find('.comment-author').text();
         
         try {
             const response = await $.ajax({
@@ -216,15 +204,24 @@ function attachCommentEventHandlers() {
             });
             
             if (!response) {
+                alert('로그인이 필요합니다.');
                 location.href = './login';
                 return;
             }
+
+            // 자신의 댓글인지 확인
+            if (response.nick === commentAuthor) {
+                alert('자신의 댓글에는 좋아요를 할 수 없습니다.');
+                return;
+            }
             
-            // 버튼의 liked 클래스로 현재 상태 확인
-            const isLiked = $button.hasClass('liked');
+            const isLiked = await $.ajax({
+                url: './api/chat/checkLikeStatus',
+                type: 'POST',
+                data: { chat_idx: commentId }
+            });
             
-            if (isLiked) {
-                // 이미 좋아요가 되어있으면 삭제
+            if (isLiked > 0) {
                 await $.ajax({
                     url: './api/chat/deleteLike',
                     type: 'POST',
@@ -233,9 +230,8 @@ function attachCommentEventHandlers() {
                 $button.removeClass('liked');
                 $icon.removeClass('fa-solid').addClass('fa-regular');
                 const currentCount = parseInt($count.text()) || 0;
-                $count.text(Math.max(0, currentCount - 1));
+                $count.text(Math.max(0, currentCount - 1));  
             } else {
-                // 좋아요가 안되어있으면 추가
                 await $.ajax({
                     url: './api/chat/addLike',
                     type: 'POST',
@@ -295,14 +291,20 @@ function deleteComment(commentId) {
     });
 }
 
-// 댓글 수 업데이트 함수 추가
+// 댓글 수 업데이트 함수 수정
 function updateCommentCount(boardIdx) {
+    if (!boardIdx) {
+        console.error('게시글 ID가 없습니다.');
+        $('#chatCount').text('0');
+        return;
+    }
+
     $.ajax({
         url: `./api/chat/findAll?board_idx=${boardIdx}`,
         type: 'GET',
         success: function(comments) {
             const commentCount = comments ? comments.length : 0;
-            $('#chatCount').text(commentCount);
+            $('#chatCount').text(commentCount.toString());
         },
         error: function(error) {
             console.error('댓글 수 조회 중 오류:', error);

@@ -8,23 +8,18 @@
 <script src="./js/main.js"></script>
 <link rel="stylesheet" href="./css/style.css">
 
-<c:if test="${empty sessionScope.me}">  
-    <div class="search-bar">
+<div class="search-bar">
+    <c:if test="${empty sessionScope.me}">  
         <button class="write-button" onclick="location.href='./write'">글쓰기</button>
-    <div style="display: flex; gap: 10px;">
-        <input type="text" id="searchInput" placeholder="검색...">
-        <button onclick="searchPosts()">검색</button>
-    </div>
-    </div> 
-</c:if>
-
-<c:if test="${not empty sessionScope.me}">
-    <div class="search-bar">
+    </c:if>
+    <c:if test="${not empty sessionScope.me}">
         <button class="r-write-button" onclick="location.href='./write'">글쓰기</button>
+    </c:if>
+
     <div style="display: flex; gap: 10px;">
         <input type="text" id="searchInput" placeholder="검색...">
         <button onclick="searchPosts()">검색</button>
     </div>
-    </div> 
-</c:if>
+</div>
+
 

@@ -150,8 +150,9 @@ h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
-    margin-top: 10px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .search-bar input {
@@ -224,4 +225,64 @@ footer a {
 
 footer a:hover {
     color: var(--hover-color);
+}
+
+.pagination-sm {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pagination-sm li {
+    margin: 0 2px;
+}
+
+.pagination-sm li a {
+    color: #333;
+    padding: 8px 12px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.pagination-sm li.active a {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.pagination-sm li a:hover {
+    background-color: #f8f9fa;
+}
+
+.pagination-sm li.disabled a {
+    color: #6c757d;
+    pointer-events: none;
+}
+
+.write-button, .r-write-button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+}
+
+#searchInput {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 200px;
+}
+
+button[onclick="searchPosts()"] {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
 }

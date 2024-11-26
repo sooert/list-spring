@@ -56,8 +56,18 @@ public class ChatController {
 
 	// 댓글 찾기
 	@GetMapping("findAll")
-	public List<Chat> findAll(@RequestParam(value = "board_idx") int board_idx) {
-		return chatService.findAll(board_idx);
+	public List<Chat> findAll(
+			@RequestParam(value = "board_idx") int board_idx,
+			HttpSession session) {
+		// 로그인하지 않은 사용자도 댓글을 볼 수 있도록 수정
+		User me = (User) session.getAttribute("me");
+		String userNick = me != null ? me.getNick() : null;
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("board_idx", board_idx);
+		params.put("user_nick", userNick);
+
+		return chatService.findAll(params);
 	}
 
 	// 댓글 삭제
@@ -124,7 +134,10 @@ public class ChatController {
 		Map<String, Object> params = new HashMap<>();
 		params.put("chat_idx", chat_idx);
 		params.put("user_nick", me.getNick());
+		
+		// 좋아요 추가 및 카운트 증가
 		chatService.addLike(params);
+		chatService.addLikeCount(chat_idx);
 		return "ok";
 	}
 

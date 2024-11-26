@@ -7,6 +7,7 @@ public class Chat {
 	public String chat = null;
 	public String created_date = null;
 	private int like_count = 0;
+	private int is_liked;
 
 	public int getChat_idx() {
 		return chat_idx;
@@ -54,6 +55,14 @@ public class Chat {
 
 	public void setLike_count(int like_count) {
 		this.like_count = like_count;
+	}
+
+	public int getIs_liked() {
+		return is_liked;
+	}
+
+	public void setIs_liked(int is_liked) {
+		this.is_liked = is_liked;
 	}
 
 }

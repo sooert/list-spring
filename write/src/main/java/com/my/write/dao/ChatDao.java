@@ -21,8 +21,8 @@ public class ChatDao {
 	}
 
 	// 댓글 찾기
-	public List<Chat> findAll(int board_idx) {
-		return s.selectList("ChatMapper.findAll", board_idx);
+	public List<Chat> findAll(Map<String, Object> params) {
+		return s.selectList("ChatMapper.findAll", params);
 	}
 
 	// 댓글 삭제

@@ -22,8 +22,8 @@ public class ChatService {
 	}
 
 	// 댓글 찾기
-	public List<Chat> findAll(int board_idx) {
-		return chatDao.findAll(board_idx);
+	public List<Chat> findAll(Map<String, Object> params) {
+		return chatDao.findAll(params);
 	}
 
 	// 댓글 삭제
@@ -73,5 +73,6 @@ public class ChatService {
 	public void deleteLike(Map<String, Object> params) {
 		chatDao.deleteLike(params);
 	}
+
 
 }

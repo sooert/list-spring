@@ -31,15 +31,22 @@
 	</delete>
 
 	<!-- 댓글 전체 찾기 -->
-	<select id="findAll" parameterType="int" resultType="Chat">
-		SELECT 
-			c.*,
-			(SELECT COUNT(*) 
-			 FROM chat_likes cl 
-			 WHERE cl.chat_idx = c.chat_idx) as like_count
-		FROM chat c 
-		WHERE c.board_idx = #{board_idx}
-		ORDER BY c.created_date DESC
+	<select id="findAll" parameterType="map" resultType="Chat">
+    SELECT 
+        c.*,
+        (SELECT COUNT(*) 
+         FROM chat_likes cl 
+         WHERE cl.chat_idx = c.chat_idx) as like_count,
+        CASE 
+            WHEN #{user_nick} IS NULL THEN 0
+            ELSE (SELECT COUNT(*) 
+                  FROM chat_likes cl 
+                  WHERE cl.chat_idx = c.chat_idx 
+                  AND cl.user_nick = #{user_nick})
+        END as is_liked
+    FROM chat c 
+    WHERE c.board_idx = #{board_idx}
+    ORDER BY c.created_date DESC
 	</select>
 
 	<!-- 댓글 삭제  -->
