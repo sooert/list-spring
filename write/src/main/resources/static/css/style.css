@@ -147,7 +147,7 @@ h2 {
 /* 검색창과 버튼 컨테이너 스타일 수정 */
 .search-bar {
     display: flex;
-    justify-content: space-between ;
+    justify-content: space-between;
     align-items: center;
     padding: 20px;
     max-width: var(--page-w);

@@ -15,7 +15,7 @@
 	<update id="update" parameterType="User">
 		UPDATE `user`
 		SET
-			nick = #{nick}, pw = MD5(#{pw}), address = #{address}
+			nick = #{nick}, address = #{address}
 		WHERE user_code = #{user_code}
 	</update>
 

@@ -6,7 +6,7 @@ $(document).ready(function() {
     });
 
     // 초기 설정
-    const countPerPage = 12;
+    const countPerPage = 10;
     let currentCategory = 'ALL';
     
     // 현재 카테고리 확인 및 저장
