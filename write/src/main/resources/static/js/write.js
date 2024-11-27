@@ -28,7 +28,7 @@ $(document).ready(function() {
         $.ajax({
             url: './api/board/create',
             type: 'POST',
-            data: boardData,  // JSON.stringify 제거하고 일반 객체로 전송
+            data: boardData,
             success: function(response) {
                 if (response === "로그인이 필요합니다") {
                     alert('로그인이 필요합니다.');

@@ -165,4 +165,3 @@ function searchPosts() {
 function viewPost(boardIdx) {
     window.location.href = `./detail?idx=${boardIdx}`;
 }
-

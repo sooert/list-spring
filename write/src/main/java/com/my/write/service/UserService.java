@@ -1,5 +1,6 @@
 package com.my.write.service;
 
+import java.util.HashMap;
 import java.util.List;	
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,4 +53,9 @@ public class UserService {
 	public List<User> findAll() {
 		return userDao.findAll();
 	}	
+
+	// 유저 전체 찾기
+	public List<User> findAll(HashMap<String, Object> map) {
+		return userDao.findAll(map);
+	}
 }

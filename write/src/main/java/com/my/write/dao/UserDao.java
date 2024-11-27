@@ -1,5 +1,6 @@
 package com.my.write.dao;
-
+	
+import java.util.HashMap;
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,4 +51,9 @@ public class UserDao {
 	public List<User> findAll() {
 		return s.selectList("UserMapper.findAll");
 	}	
+
+	// 유저 전체 찾기
+	public List<User> findAll(HashMap<String, Object> map) {
+		return s.selectList("UserMapper.findAll", map);
+	}		
 }

@@ -1,7 +1,8 @@
 package com.my.write.controller;
 
+import java.util.HashMap;
 import java.util.List;
-
+	
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -139,5 +140,14 @@ public class UserController {
 	@GetMapping("findAll")
 	public List<User> findAll() {
 		return userService.findAll();
+	}
+
+	// 유저 전체 찾기 (페이지네이션)
+	@GetMapping("findAllByPage")
+	public List<User> findAllByPage(@RequestParam(value = "start") int start, @RequestParam(value = "count") int count) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("start", start);
+		map.put("count", count);
+		return userService.findAll(map);
 	}
 }

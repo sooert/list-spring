@@ -49,7 +49,7 @@
 
     <footer>    
         <p><a href="https://github.com/sooert">GITHUB</a></p>
-        <p>&copy; 2024 게시판 제출용</p>
+        <p>&copy; 2024 게시판 포트폴리오</p>
     </footer>
   </body>
 </html>
