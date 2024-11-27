@@ -1,5 +1,6 @@
 package com.my.write.controller;
 
+import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -27,7 +28,7 @@ public class UserController {
 	// 회원 생성
 	@PostMapping("create")
 	public String create(@RequestParam(value = "id") String id, @RequestParam(value = "pw") String pw,
-			@RequestParam(value = "nick") String nick) {
+			@RequestParam(value = "nick") String nick, @RequestParam(value = "address") String address) {
 		// 아이디 중복 검사
 		if (userService.getById(id) != null) {
 			return ("동일한 id");
@@ -43,7 +44,7 @@ public class UserController {
 		user.setId(id);
 		user.setPw(pw);
 		user.setNick(nick);
-
+		user.setAddress(address);
 		String userCode;
 		do {
 			userCode = RandomStringUtils.randomAlphanumeric(10);
@@ -96,4 +97,46 @@ public class UserController {
 		return (User) session.getAttribute("me");
 	}
 
+	// 유저 코드 찾기
+	@GetMapping("findByCode")
+	public User findByCode(@RequestParam(value = "user_code") String user_code, 
+							HttpSession	session) {
+		if (user_code == null || user_code.equals("null")) {
+			return null;
+		}
+		User user = userService.findByCode(user_code);
+		if (user != null) {
+			session.setAttribute("me", user);
+		}
+		return user;
+	}
+
+	// 유저 수정
+	@PostMapping("update")
+	public String update(@RequestParam(value = "user_code") String user_code, 
+						@RequestParam(value = "nick") String nick, 
+						@RequestParam(value = "address") String address, 
+						HttpSession session) {
+
+		User user = userService.findByCode(user_code);
+		user.setNick(nick);
+		user.setAddress(address);
+		userService.update(user);
+		
+		// 세션의 사용자 정보도 업데이트
+		session.setAttribute("me", user);
+		return "ok";
+	}
+
+	// 유저 idx로 찾기
+	@GetMapping("findByIdx")
+	public User findByIdx(@RequestParam(value = "user_idx") int user_idx) {
+		return userService.findByIdx(user_idx);
+	}
+	
+	// 유저 전체 찾기
+	@GetMapping("findAll")
+	public List<User> findAll() {
+		return userService.findAll();
+	}
 }

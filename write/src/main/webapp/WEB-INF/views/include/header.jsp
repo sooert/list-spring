@@ -17,10 +17,24 @@
 				<li><a href="./join">JOIN</a></li>
 			</c:if>
 
-			<c:if test="${not empty sessionScope.me}">
-				<span style="margin-right:10px; color:black; font-weight:bold;">${sessionScope.me.nick} 님</span>
-				<li><a href="#" id="log-out-btn">LOGOUT</a></li>
-			</c:if>
+			<c:choose>
+				<c:when test="${pageContext.request.servletPath eq '/WEB-INF/views/myPage.jsp'}">
+					<!-- 마이 페이지 일때 -->
+					<span style="margin-right:10px; color:black; font-weight:bold;">${sessionScope.me.nick} 님</span>
+					<li><a href="#" id="home-btn">HOME</a></li>
+					<li><a href="#" id="log-out-btn">LOGOUT</a></li>
+				</c:when>
+				<c:otherwise>
+					<c:if test="${not empty sessionScope.me}">
+						<!-- 로그인 상태일때 -->
+						<span style="margin-right:10px; color:black; font-weight:bold;">${sessionScope.me.nick} 님</span>
+						<li><a href="#" id="my-page-btn">MY PAGE</a></li>
+						<li><a href="#" id="log-out-btn">LOGOUT</a></li>
+					</c:if>
+				</c:otherwise>
+			</c:choose>
+
+			
 		</ul>
 	</nav>
 </header>

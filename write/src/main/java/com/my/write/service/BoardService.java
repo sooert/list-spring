@@ -1,6 +1,7 @@
 package com.my.write.service;
 
 import java.util.List;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ public class BoardService {
 
 	@Autowired
 	BoardDao boardDao;
-
+ 
 	// 게시글 추가
 	public int save(Board board) {
 		return boardDao.save(board);
@@ -25,8 +26,8 @@ public class BoardService {
 	}
 
 	// 전체 게시글 찾기
-	public List<Board> findAll() {
-		return boardDao.findAll();
+	public List<Board> findAll(HashMap<String, Object> params) {
+		return boardDao.findAll(params);
 	}
 
 	// 게시글 수정
@@ -54,4 +55,8 @@ public class BoardService {
 		boardDao.increaseViewCount(board_idx);
 	}
 
+	// 게시글 총 개수
+	public int totalCount(String category) {
+		return boardDao.totalCount(category);
+	}
 }

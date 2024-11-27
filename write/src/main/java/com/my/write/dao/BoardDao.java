@@ -1,6 +1,7 @@
 package com.my.write.dao;
 
 import java.util.List;
+import java.util.HashMap;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,7 +10,7 @@ import com.my.write.entity.Board;
 
 @Repository
 public class BoardDao {
-
+ 
 	@Autowired
 	SqlSession s;
 
@@ -24,8 +25,8 @@ public class BoardDao {
 	}
 
 	// 전체 게시글 찾기
-	public List<Board> findAll() {
-		return s.selectList("BoardMapper.findAll");
+	public List<Board> findAll(HashMap<String, Object> params) {
+		return s.selectList("BoardMapper.findAll", params);
 	}
 
 	// 게시글 수정
@@ -51,6 +52,11 @@ public class BoardDao {
 	// 조회수 증가
 	public void increaseViewCount(int board_idx) {
 		s.update("BoardMapper.increaseViewCount", board_idx);
+	}
+
+	// 게시글 총 개수
+	public int totalCount(String category) {
+		return s.selectOne("BoardMapper.totalCount", category);
 	}
 
 }

@@ -1,14 +1,24 @@
 $(document).ready(function() {
 
-// 버튼 누르면 로그아웃
-$('#log-out-btn').on('click', function() {
-    var con = confirm('로그아웃 하시겠습니까?');
-    
-    // 취소 누르면 리턴
-    if(!con) return;
-    
-    // 세션 스토리지에서 사용자 정보 삭제
-    sessionStorage.removeItem('me');
+    // 홈 버튼 클릭 이벤트
+    $('#home-btn').on('click', function() {
+        location.href = `./index`;
+    });
+
+    // 마이페이지 버튼 클릭 이벤트
+    $('#my-page-btn').on('click', function() {
+        location.href = `./myPage`;
+    });
+
+    // 버튼 누르면 로그아웃
+    $('#log-out-btn').on('click', function() {
+        var con = confirm('로그아웃 하시겠습니까?');
+        
+        // 취소 누르면 리턴
+        if(!con) return;
+        
+        // 세션 스토리지에서 사용자 정보 삭제
+        sessionStorage.removeItem('me');
     
     // 로그아웃 API 호출
     $.ajax({
@@ -24,4 +34,7 @@ $('#log-out-btn').on('click', function() {
         }
     });
     });
+
+
+
 });

@@ -3,6 +3,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper  namespace="BoardMapper">
 
+	<!-- 게시글 총 개수 -->
+	<select id="totalCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM board
+		<where>
+			<if test="category != null and category != 'ALL'">
+				category = #{category}
+			</if>
+		</where>
+	</select>
+
 	<!-- 조회수 증가 -->
 	<update id="increaseViewCount" parameterType="int">
 		UPDATE board 
@@ -18,7 +28,7 @@
 
 	<!-- 게시글 수정 -->
 	<update id="update" parameterType="Board">
-		UPDATE `board`
+		UPDATE `board` 
 		SET
 			name = #{name},
 			category = #{category},
@@ -35,10 +45,15 @@
 	</select>
 
 	<!-- 전체 게시글 찾기 -->
-	<select id="findAll" resultType="Board">
-		SELECT 
-			*
-		FROM `board`
+	<select id="findAll" parameterType="HashMap" resultType="Board">
+		SELECT * FROM board
+		<where>
+			<if test="category != null and category != 'ALL'">
+				category = #{category}
+			</if>
+		</where>
+		ORDER BY board_idx DESC
+		LIMIT #{start}, #{count}
 	</select>
 
 	<!-- 유저 찾기 -->
@@ -78,5 +93,14 @@
 			sysdate()
 		)
 	</insert>
-	
+
+	<!-- 게시글 검색 -->
+	<select id="searchPosts" parameterType="HashMap" resultType="Board">
+		SELECT * FROM board 
+		WHERE category = #{category}
+		AND (name LIKE CONCAT('%', #{searchTerm}, '%')
+		OR content LIKE CONCAT('%', #{searchTerm}, '%'))
+		ORDER BY board_idx DESC
+	</select>
+
 	</mapper>

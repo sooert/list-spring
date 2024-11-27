@@ -1,6 +1,7 @@
 package com.my.write.controller;
 
 import java.util.List;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
 
 import com.my.write.entity.Board;
 import com.my.write.entity.User;
@@ -80,27 +82,22 @@ public class BoardController {
 
 	// 게시글 목록 조회
 	@GetMapping("list")
-	public List<Board> getBoardList() {
+	public List<Board> getBoardList(
+			@RequestParam(value="start") int start,
+		@RequestParam(value="count") int count,
+		@RequestParam(required = false) String category,
+		Model model) {
 		try {
-			List<Board> boards = boardService.findAll();
-			System.out.println("조회된 게시글 수: " + boards.size());
-			if (boards.isEmpty()) {
-				System.out.println("게시글이 없습니다.");
-			} else {
-				System.out.println("첫 번째 게시글: " + boards.get(0).toString());
-			}
-			return boards;
+			HashMap<String, Object> map = new HashMap<>();
+			map.put("start", start); 
+			map.put("count", count);
+			map.put("category", category);
+			return boardService.findAll(map);	
 		} catch (Exception e) {
 			System.err.println("게시글 조회 중 오류 발생: " + e.getMessage());
 			e.printStackTrace();
 			return null;
 		}
-	}
-
-	// 전체 게시글 조회
-	@GetMapping("findAll")
-	public List<Board> findAll() {
-		return boardService.findAll();
 	}
 
 	// 게시글 수정
@@ -146,7 +143,7 @@ public class BoardController {
 		return "ok";
 	}
 
-	// 게시글 상세 조회
+	// 게시글 상세 조회 
 	@GetMapping("detail")
 	public Board getDetail(@RequestParam(value = "idx") int board_idx) {
 		try {
@@ -182,5 +179,11 @@ public class BoardController {
 		} catch (Exception e) {
 			return "error";
 		}
+	}
+
+	// 게시글 총 개수
+	@GetMapping("totalCount")
+	public int totalCount(@RequestParam(required = false) String category) {
+		return boardService.totalCount(category);
 	}
 }

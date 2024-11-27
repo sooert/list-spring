@@ -6,6 +6,7 @@ public class User {
 	private String id = null;
 	private String pw = null;
 	private String nick = null;
+	private String address = null;
 	private String created_date = null;
 
 	public int getUser_idx() {
@@ -46,6 +47,14 @@ public class User {
 
 	public void setNick(String nick) {
 		this.nick = nick;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getCreated_date() {

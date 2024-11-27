@@ -9,6 +9,7 @@
     <title>JOIN</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="js/join.js"></script>
     <link rel="stylesheet" href="css/join.css">
 </head>
@@ -48,8 +49,13 @@
 					<input id="nick" name="nickname" type="text" placeholder="닉네임" required/>
 					<button class="nickcheck" type="button" aria-label="닉네임 중복확인">중복확인</button>
 				</div>
-				<div id="nick-result-txt" class="validation-message" style="margin-bottom: 15px;"></div>
+				<div id="nick-result-txt" class="validation-message" style="margin-bottom: 15px;"></div> 
 
+				<!-- 주소 입력 -->
+				<div class="input-with-btn">
+					<input id="address" name="address" type="text" placeholder="주소" required/>
+				</div>
+				
 				<!-- 회원가입 버튼 -->
 				<button type="submit" id="signup-btn">회원가입</button>
 			</form>

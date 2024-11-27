@@ -91,4 +91,11 @@ public class ViewController {
 		return getViewName(session, "edit");
 	}
 
+	/**
+	 * 마이페이지 페이지 이동 http://127.0.0.1:8080/write/myPage
+	 */
+	@GetMapping("myPage")
+	public String myPage(HttpSession session) {
+		return getViewName(session, "myPage");
+	}
 }

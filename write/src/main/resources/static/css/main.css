@@ -1,0 +1,104 @@
+:root {
+    --color-gray: #e0dddc;
+    --color-mray: #c6c6c6;
+    --primary-color: var(--color-mray);
+    --secondary-color: var(--color-gray);
+    --text-color: #2c3e50;
+    --border-color: var(--color-gray);
+    --hover-color: var(--color-gray);
+} 
+
+/* 페이지네이션 컨테이너 스타일 */
+.pagination-sm {
+    display: flex;
+    list-style: none;
+    padding: 0; 
+    margin: 20px 0;
+    justify-content: center;
+    gap: 5px;
+}
+
+.page-link {
+    color: var(--text-color);
+    background-color: var(--secondary-color);
+}
+
+/* 페이지네이션 아이템 스타일 */
+.pagination-sm li {
+    display: inline-block;
+}
+
+/* 페이지 링크 스타일 */
+.pagination-sm li a {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+/* 활성화된 페이지 스타일 */
+.pagination-sm li.active a {
+    background-color: var(--color-mray);
+    color: white;
+    border-color: var(--color-mray);
+}
+
+/* 호버 효과 */
+.pagination-sm li:not(.active) a:hover {
+    background-color: var(--color-gray);
+    border-color: var(--color-gray);
+}
+
+/* 비활성화된 페이지 스타일 */
+.pagination-sm li.disabled a {
+    color: var(--text-color);
+    pointer-events: none;
+    background-color: var(--secondary-color);
+    border-color: var(--border-color);
+}
+
+/* 게시판 테이블 스타일 */
+.board-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.board-table th,
+.board-table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+}
+
+.board-table th {
+    background-color: var(--secondary-color);
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.board-table tr:hover {
+    background-color: var(--color-default);
+}
+
+.no-posts {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-color);
+    background-color: white;
+    border-radius: 4px;
+    margin: 20px 0;
+}
+
+.error-message {
+    text-align: center;
+    padding: 20px;
+    color: #dc3545;
+    background-color: #f8d7da;
+    border-radius: 4px;
+    margin: 20px 0;
+}

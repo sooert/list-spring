@@ -14,6 +14,8 @@ function searchPosts() {
 }
 
 $(document).ready(function() {
+
+
     // 페재 페이지 URL에서 카테고리 확인
     const currentPath = window.location.pathname;
     let category = 'ALL';
@@ -54,7 +56,7 @@ function loadPosts(category) {
                     <tr onclick="viewPost(${board.board_idx})" style="cursor: pointer;">
                         <td>${index + 1}</td>
                         <td>${board.category}</td>
-                        <td>${board.name}</td>
+                        <td>${board.nick}</td>
                         <td>${board.user_nick}</td>
                         <td>${board.created_date}</td>
                         <td>${board.views}</td>

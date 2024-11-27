@@ -1,0 +1,83 @@
+:root {
+    --color-gray: #e0dddc;
+    --color-mray: #c6c6c6;
+    --color-default: #eee7e7;
+	--primary-color: var(--color-mray);
+	--secondary-color: var(--color-gray);
+	--text-color: #2c3e50;
+	--border-color: var(--color-gray);
+	--hover-color: #a2a2a2;
+	--page-w: 1200px;
+}
+
+.main-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.main-container h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+}
+
+.font-box {
+    margin-bottom: 1.5rem;
+}
+
+.d-font {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.d-box {
+    width: 95%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.d-box:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 5px rgba(76,175,80,0.2);
+}
+
+input.d-box {
+    background: #f9f9f9;
+}
+
+#save-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 1rem;
+}
+
+#save-btn:hover {
+    background: var(--hover-color);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .main-container {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+}

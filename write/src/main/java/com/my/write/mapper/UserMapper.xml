@@ -3,6 +3,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper  namespace="UserMapper">
 
+	<!-- 유저 idx로 찾기 -->
+	<select id="findByIdx" parameterType="int" resultType="User">
+		SELECT 
+			*
+		FROM `user`
+		WHERE user_idx = #{user_idx}
+	</select>
+
+	<!-- 유저 수정 -->
+	<update id="update" parameterType="User">
+		UPDATE `user`
+		SET
+			nick = #{nick}, pw = MD5(#{pw}), address = #{address}
+		WHERE user_code = #{user_code}
+	</update>
+
 	<!-- 유저 아이디 찾기 -->
 	<select id="findById" parameterType="int" resultType="User">
 		SELECT 
@@ -34,14 +50,6 @@
 		FROM `user`
 		WHERE nick = #{nick}
 	</select>
-
-	<!-- 로그아웃 -->
-	<update id="logout">
-		update `user`
-		set
-			session_id = null
-		where user_idx = #{user_idx}
-	</update>
 	
 	<!-- 유저코드 찾기 -->
 	<select id = "findByCode" parameterType="String" resultType="User">
@@ -50,7 +58,6 @@
 		where user_code=#{user_code}	
 	
 	</select>
-	
 	
 	<!-- 전체 유저 리스트  -->
 	<select id="findByAll" resultType="User">
@@ -68,6 +75,7 @@
 			id,
 			pw,
 			nick,
+			address,
 			created_date
 		)
 		values
@@ -77,6 +85,7 @@
 			#{id},
 			MD5(#{pw}),
 			#{nick},
+			#{address},
 			sysdate()
 		)
 	

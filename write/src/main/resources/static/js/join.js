@@ -66,6 +66,16 @@ function buildResultText(result, isPasswordCheck) {
 
 $(document).ready(function() {
 
+    //주소창 검색
+    $('#address').on('click', function() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                console.log(data.address);
+                $('#address').val(data.address);
+            }
+        }).open();
+    });
+
     
     // 한글 입력 방지
     $('#id, #pw').on('keyup', function(e) {
@@ -111,6 +121,7 @@ $(document).ready(function() {
             nick: $('#nick').val(), 
             pw: $('#pw').val(),
             pwcheck: $('#pwcheck').val(),
+            address: $('#address').val(),
         };
 
         // 백엔드로 요청
@@ -121,11 +132,12 @@ $(document).ready(function() {
             id: userData.id,
             pw: userData.pw,
             nick: userData.nick,
+            address: userData.address,
         },
         success: function(response) {
             if(response == 'ok') {
                 alert("회원가입이 완료되었습니다.");
-                window.location.href = './index';
+                window.location.href = './login';
             } else if(response == '동일한 id') {
                 alert("이미 가입된 아이디가 존재합니다.");
             } else if(response == '동일한 nick') {
