@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="AdminMapper">
+
+	<!-- 로그인 찾기 -->
+	<select id = "getByIdAndPw" parameterType="User" resultType="User">
+		select * from `user`
+		where id = #{id} and pw = MD5(#{pw})
+	
+	</select>
+
+	<!-- 회원 추가  -->
+	<insert id="save" parameterType="Admin">
+		insert into `admin`
+		(
+			admin_code,
+			id,
+			pw,
+			nick
+		)
+		values
+		(	
+			#{admin_code},	
+			#{id},
+			MD5(#{pw}),
+			#{nick}
+		)
+	
+	</insert>
+	
+	
+	</mapper>

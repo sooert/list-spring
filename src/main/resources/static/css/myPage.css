@@ -1,0 +1,162 @@
+:root {
+    --color-gray: #e0dddc;
+    --color-mray: #c6c6c6;
+    --color-default: #eee7e7;
+	--primary-color: var(--color-mray);
+	--secondary-color: var(--color-gray);
+	--text-color: #2c3e50;
+	--border-color: var(--color-gray);
+	--hover-color: #a2a2a2;
+	--page-w: 1200px;
+}
+
+/* 메인 컨테이너 */
+.main-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+/* 헤더 */
+.main-container h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+}
+
+/* 폰트 박스 */
+.font-box {
+    margin-bottom: 1.5rem;
+}
+
+.d-font {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.d-box {
+    width: 95%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.d-box:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 5px rgba(76,175,80,0.2);
+}
+
+input.d-box {
+    background: #f9f9f9;
+}
+
+#save-btn {
+    width: 20%;
+    padding: 1rem;
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 1rem;
+}
+
+#save-btn:hover, #delete-btn:hover {
+    background: var(--hover-color);
+}
+
+#delete-btn {
+    width: 20%;
+    padding: 1rem;
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 1rem;
+}
+
+.button-box {
+    display : flex;
+    justify-content: space-between;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .main-container {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+}
+
+/* 달력 입력 필드 컨테이너 */
+.birth-date-container {
+    position: relative;
+    width: 100%;
+}
+
+/* 달력 입력 필드 */
+#birth_date {
+    width: 95%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #f9f9f9;
+}
+
+/* 달력 아이콘 */
+.calendar-icon {
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    cursor: pointer;
+    font-size: 1.2rem;
+    pointer-events: none;
+}
+
+/* 기본 달력 아이콘 숨기기 */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+/* 호버 효과 */
+.birth-date-container:hover #birth_date {
+    border-color: var(--primary-color);
+    background-color: #fff;
+}
+
+.birth-date-container:hover .calendar-icon {
+    color: var(--primary-color);
+}
+
+/* 포커스 효과 */
+#birth_date:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 5px rgba(76,175,80,0.2);
+}
