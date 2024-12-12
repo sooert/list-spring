@@ -2,7 +2,7 @@ package com.my.write.controller;
 
 import java.util.HashMap;
 import java.util.List;
-	
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.my.write.entity.User;
 import com.my.write.service.BoardService;
 import com.my.write.service.UserService;
-import com.my.write.service.AdminService;
 
 @RestController
 @RequestMapping(value = "api/user")
@@ -28,15 +27,10 @@ public class UserController {
 	@Autowired
 	BoardService boardService;
 
-	@Autowired
-	AdminService adminService;
-
 	// 회원 생성
 	@PostMapping("create")
-	public String create(@RequestParam(value = "id") String id,
-			@RequestParam(value = "pw") String pw,
-			@RequestParam(value = "nick") String nick, 
-			@RequestParam(value = "address") String address,
+	public String create(@RequestParam(value = "id") String id, @RequestParam(value = "pw") String pw,
+			@RequestParam(value = "nick") String nick, @RequestParam(value = "address") String address,
 			@RequestParam(value = "birth_date") String birth_date) {
 		try {
 			// 필수 파라미터 검증
@@ -61,7 +55,7 @@ public class UserController {
 			user.setNick(nick);
 			user.setAddress(address);
 			user.setBirth_date(birth_date);
-			
+
 			String userCode;
 			do {
 				userCode = RandomStringUtils.randomAlphanumeric(10);
@@ -120,8 +114,7 @@ public class UserController {
 
 	// 유저 코드 찾기
 	@GetMapping("findByCode")
-	public User findByCode(@RequestParam(value = "user_code") String user_code, 
-							HttpSession	session) {
+	public User findByCode(@RequestParam(value = "user_code") String user_code, HttpSession session) {
 		if (user_code == null || user_code.equals("null")) {
 			return null;
 		}
@@ -134,18 +127,16 @@ public class UserController {
 
 	// 유저 수정
 	@PostMapping("update")
-	public String update(@RequestParam(value = "user_code") String user_code, 
-						@RequestParam(value = "nick") String nick, 
-						@RequestParam(value = "address") String address, 
-						@RequestParam(value = "birth_date") String birth_date, 
-						HttpSession session) {
+	public String update(@RequestParam(value = "user_code") String user_code, @RequestParam(value = "nick") String nick,
+			@RequestParam(value = "address") String address, @RequestParam(value = "birth_date") String birth_date,
+			HttpSession session) {
 
 		User user = userService.findByCode(user_code);
 		user.setNick(nick);
 		user.setAddress(address);
 		user.setBirth_date(birth_date);
 		userService.update(user);
-		
+
 		// 세션의 사용자 정보도 업데이트
 		session.setAttribute("me", user);
 		return "ok";
@@ -153,8 +144,7 @@ public class UserController {
 
 	// 유저 회원 탈퇴
 	@PostMapping("delete")
-	public String delete(@RequestParam(value = "user_code") String user_code, 
-							HttpSession session) {
+	public String delete(@RequestParam(value = "user_code") String user_code, HttpSession session) {
 		userService.delete(user_code);
 		session.invalidate();
 		return "ok";
@@ -165,7 +155,7 @@ public class UserController {
 	public User findByIdx(@RequestParam(value = "user_idx") int user_idx) {
 		return userService.findByIdx(user_idx);
 	}
-	
+
 	// 유저 전체 찾기
 	@GetMapping("findAll")
 	public List<User> findAll() {
@@ -174,13 +164,12 @@ public class UserController {
 
 	// 유저 전체 찾기 (페이지네이션)
 	@GetMapping("findAllByPage")
-	public List<User> findAllByPage(@RequestParam(value = "start") int start, 
-									@RequestParam(value = "count") int count) {
+	public List<User> findAllByPage(@RequestParam(value = "start") int start,
+			@RequestParam(value = "count") int count) {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("start", start);
 		map.put("count", count);
 		return userService.findAll(map);
 	}
-
 
 }
