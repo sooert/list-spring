@@ -39,12 +39,12 @@ public class UserController {
 			}
 
 			// 아이디 중복 검사
-			if (userService.getById(id) != null) {
+			if (userService.findById(id) != null) {
 				return "동일한 id";
 			}
 
 			// 닉네임 중복 검사
-			if (userService.getByNick(nick) != null) {
+			if (userService.findByNick(nick) != null) {
 				return "동일한 nick";
 			}
 
@@ -72,15 +72,15 @@ public class UserController {
 	}
 
 	// 아이디로 회원 찾기
-	@GetMapping("getById")
-	public User getById(@RequestParam String id) {
-		return userService.getById(id);
+	@PostMapping("findById")
+	public User findById(@RequestParam String id) {
+		return userService.findById(id);
 	}
 
 	// 닉네임으로 회원 찾기
-	@GetMapping("getByNick")
-	public User getByNick(@RequestParam String nick) {
-		return userService.getByNick(nick);
+	@PostMapping("findByNick")
+	public User findByNick(@RequestParam String nick) {
+		return userService.findByNick(nick);
 	}
 
 	// 로그인
@@ -92,7 +92,7 @@ public class UserController {
 		user.setId(id);
 		user.setPw(pw);
 
-		User result = userService.getByIdAndPw(user);
+		User result = userService.findByIdAndPw(user);
 		if (result != null) {
 			session.setAttribute("me", result);
 		}
@@ -113,7 +113,7 @@ public class UserController {
 	}
 
 	// 유저 코드 찾기
-	@GetMapping("findByCode")
+	@PostMapping("findByCode")
 	public User findByCode(@RequestParam(value = "user_code") String user_code, HttpSession session) {
 		if (user_code == null || user_code.equals("null")) {
 			return null;
@@ -151,19 +151,19 @@ public class UserController {
 	}
 
 	// 유저 idx로 찾기
-	@GetMapping("findByIdx")
+	@PostMapping("findByIdx")
 	public User findByIdx(@RequestParam(value = "user_idx") int user_idx) {
 		return userService.findByIdx(user_idx);
 	}
 
 	// 유저 전체 찾기
-	@GetMapping("findAll")
+	@PostMapping("findAll")
 	public List<User> findAll() {
 		return userService.findAll();
 	}
 
 	// 유저 전체 찾기 (페이지네이션)
-	@GetMapping("findAllByPage")
+	@PostMapping("findAllByPage")
 	public List<User> findAllByPage(@RequestParam(value = "start") int start,
 			@RequestParam(value = "count") int count) {
 		HashMap<String, Object> map = new HashMap<>();

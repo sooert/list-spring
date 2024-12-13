@@ -25,18 +25,18 @@ public class UserService {
 	}
 
 	// 아이디 찾기	
-	public User getById(String id) {
-		return userDao.getById(id);
+	public User findById(String id) {
+		return userDao.findById(id);
 	}
 
 	// 닉네임 찾기
-	public User getByNick(String nick) {
-		return userDao.getByNick(nick);
+	public User findByNick(String nick) {
+		return userDao.findByNick(nick);
 	}
 
     // 유저 검색
-	public User getByIdAndPw(User user) {
-		return userDao.getByIdAndPw(user);
+	public User findByIdAndPw(User user) {
+		return userDao.findByIdAndPw(user);
 	}
 
 	// 유저 수정

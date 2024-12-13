@@ -5,6 +5,12 @@ $(document).ready(function() {
         location.href = './login';
     });
 
+    // 검색 버튼 처리 수정
+    $('.search-button').click(function(e) {
+        e.preventDefault(); // 기본 동작 중지
+        searchPosts();
+    });
+
     // 초기 설정
     const countPerPage = 10;
     let currentCategory = 'ALL';
@@ -26,8 +32,8 @@ $(document).ready(function() {
 // 페이지네이션 초기화
 function initializePagination(category, countPerPage) {
     $.ajax({
-        url: "api/board/totalCount",
-        method: "get",
+        url: "./api/board/totalCount",
+        type: "get",
         data: { category: category },
         success: function(totalCount) {
             $('#pagination-demo').twbsPagination({
@@ -107,16 +113,18 @@ function loadPosts(category, start, count) {
     });
 }
 
-// 검색 기능 수정
+// 검색 기능
 function searchPosts() {
+    const category = $('#categorySelect').val();
+    const start = 0;
     const searchTerm = $('#searchInput').val();
-    
+
     $.ajax({
         url: "./api/board/search",
         type: "GET",
         data: {
-            searchTerm: searchTerm,
-            category: currentCategory  // 현재 카테고리 전달
+            category: category === '전체' ? null : category,
+            searchTerm: searchTerm
         },
         success: function(boards) {
             if (!boards || boards.length === 0) {
@@ -142,7 +150,7 @@ function searchPosts() {
             boards.forEach(function(board, index) {
                 html += `
                     <tr onclick="viewPost(${board.board_idx})" style="cursor: pointer;">
-                        <td>${index + 1}</td>
+                        <td>${start + index + 1}</td>
                         <td>${board.category}</td>
                         <td>${board.name}</td>
                         <td>${board.user_nick}</td>

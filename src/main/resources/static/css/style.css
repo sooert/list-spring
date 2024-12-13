@@ -156,7 +156,21 @@ h2 {
 }
 
 /* 검색 입력창 스타일 수정 */
-#searchInput {
+#categorySelect {
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    width: 90px;
+    transition: all 0.3s ease;
+}
+
+#categorySelect:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+#searchInput{
     padding: 8px 12px;
     border: 1px solid var(--border-color);
     border-radius: 4px;

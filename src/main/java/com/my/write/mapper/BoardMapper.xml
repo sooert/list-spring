@@ -3,6 +3,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper  namespace="BoardMapper">
 
+	<!-- 게시글 검색 -->
+	<select id="searchPosts" parameterType="HashMap" resultType="Board">
+		SELECT * FROM board 
+		<where>
+			<!-- 카테고리 검색 -->
+			<if test="category != null">
+				AND category = #{category}
+			</if>
+			<!-- 검색어 검색 -->
+			<if test="searchTerm != null">
+				AND (name LIKE CONCAT('%', #{searchTerm}, '%')
+				OR content LIKE CONCAT('%', #{searchTerm}, '%')
+				OR user_nick LIKE CONCAT('%', #{searchTerm}, '%'))
+			</if>
+		</where>
+		ORDER BY board_idx DESC
+	</select>
+
+
 	<!-- 게시글 총 개수 -->
 	<select id="totalCount" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM board
@@ -69,7 +88,7 @@
 		SELECT 
 			*
 		FROM `board`
-		WHERE user_nick = #{nick}
+		WHERE user_nick = #{nick}  	
 	</select>
 	
 	<!-- 게시글 추가  -->
@@ -94,13 +113,6 @@
 		)
 	</insert>
 
-	<!-- 게시글 검색 -->
-	<select id="searchPosts" parameterType="HashMap" resultType="Board">
-		SELECT * FROM board 
-		WHERE category = #{category}
-		AND (name LIKE CONCAT('%', #{searchTerm}, '%')
-		OR content LIKE CONCAT('%', #{searchTerm}, '%'))
-		ORDER BY board_idx DESC
-	</select>
+	
 
 	</mapper>

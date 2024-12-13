@@ -20,8 +20,8 @@ public class LikeDao {
 	}
 
 	// 좋아요 조회
-	public Like getByBoardIdx(int board_idx) {
-		return s.selectOne("LikeMapper.getByBoardIdx", board_idx);
+	public Like findByBoardIdx(int board_idx) {
+		return s.selectOne("LikeMapper.findByBoardIdx", board_idx);
 	}
 
 	// 좋아요 상태 확인

@@ -24,18 +24,18 @@ public class UserDao {
 	}
 
 	// 아이디 찾기
-	public User getById(String id) {
-		return s.selectOne("UserMapper.getById", id);
+	public User findById(String id) {
+		return s.selectOne("UserMapper.findById", id);
 	}
 
 	// 닉네임 찾기
-	public User getByNick(String nick) {
-		return s.selectOne("UserMapper.getByNick", nick);
+	public User findByNick(String nick) {
+		return s.selectOne("UserMapper.findByNick", nick);
 	}
 
 	// 로그인 - 아이디/비밀번호로 회원 조회
-	public User getByIdAndPw(User user) {
-		return s.selectOne("UserMapper.getByIdAndPw", user);
+	public User findByIdAndPw(User user) {
+		return s.selectOne("UserMapper.findByIdAndPw", user);
 	}
 	// 유저 수정
 	public int update(User user) {

@@ -68,7 +68,7 @@ function loadPosts(category) {
             $('#board-body').html('<tr><td colspan="6" style="text-align: center; color: red;">게시글 목록을 불러오는데 실패했습니다.</td></tr>');
         }
     });
-}
+} 
 
 // 게시글 조회 함수 수정
 function viewPost(boardIdx) {

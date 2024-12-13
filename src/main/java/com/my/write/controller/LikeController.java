@@ -43,7 +43,7 @@ public class LikeController {
 			HttpSession session) {
 
 		try {
-			User result = userService.getByNick(user_nick);
+			User result = userService.findByNick(user_nick);
 			if (result != null) {
 				session.setAttribute("me", result);
 			}
@@ -70,8 +70,8 @@ public class LikeController {
 
 	// 좋아요 조회
 	@GetMapping("getByBoardIdx")
-	public Like getByBoardIdx(@RequestParam("board_idx") int board_idx) {
-		return likeService.getByBoardIdx(board_idx);
+	public Like findByBoardIdx(@RequestParam("board_idx") int board_idx) {
+		return likeService.findByBoardIdx(board_idx);
 	}
 
 	// 좋아요 상태 확인

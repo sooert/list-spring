@@ -14,14 +14,6 @@
 		LIMIT #{start}, #{count}
 	</select>
 
-	<!-- 유저 idx로 찾기 -->
-	<select id="findByIdx" parameterType="int" resultType="User">
-		SELECT 
-			*
-		FROM `user`
-		WHERE user_idx = #{user_idx}
-	</select>
-
 	<!-- 유저 수정 -->
 	<update id="update" parameterType="User">
 		UPDATE `user`
@@ -33,7 +25,7 @@
 	</update>
 
 	<!-- 유저 아이디 찾기 -->
-	<select id="findById" parameterType="int" resultType="User">
+	<select id="findByIdx" parameterType="int" resultType="User">
 		SELECT 
 			*
 			FROM `user`
@@ -42,14 +34,14 @@
 
 
 	<!-- 로그인 찾기 -->
-	<select id = "getByIdAndPw" parameterType="User" resultType="User">
+	<select id = "findByIdAndPw" parameterType="User" resultType="User">
 		select * from `user`
 		where id = #{id} and pw = MD5(#{pw})
 	
 	</select>
 	
 	<!-- 아이디 찾기 -->
-	<select id="getById" parameterType="String" resultType="User">
+	<select id="findById" parameterType="String" resultType="User">
 		SELECT 
 			*
 		FROM `user`
@@ -57,7 +49,7 @@
 	</select>
 
 	<!-- 닉네임 찾기 -->
-	<select id="getByNick" parameterType="String" resultType="User">
+	<select id="findByNick" parameterType="String" resultType="User">
 		SELECT 
 			*
 		FROM `user`

@@ -22,18 +22,32 @@
 </div>
 
 <div class="search-bar">
+    <!-- 비로그인 상태 -->
     <c:if test="${empty sessionScope.me}">
         <div style="display: flex; gap: 10px;" class="search-bar">
             <button class="write-button" onclick="location.href='./write'">글쓰기</button>
+            <select id="categorySelect">
+                <option value="전체">전체</option>
+                <option value="제목">제목</option>
+                <option value="내용">내용</option>
+                <option value="작성자">작성자</option>
+            </select>
             <input type="text" id="searchInput" placeholder="검색...">
-            <button onclick="searchPosts()">검색</button> 
+            <button class="search-button" onclick="searchPosts()">검색</button> 
         </div>
     </c:if>
+    <!-- 로그인 상태 -->
     <c:if test="${not empty sessionScope.me}">
         <div style="display: flex; gap: 10px;" class="search-bar">
             <button class="r-write-button" onclick="location.href='./write'">글쓰기</button>
+            <select id="categorySelect">
+                <option value="전체">전체</option>
+                <option value="제목">제목</option>
+                <option value="내용">내용</option>
+                <option value="작성자">작성자</option>
+            </select>
             <input type="text" id="searchInput" placeholder="검색...">
-            <button onclick="searchPosts()">검색</button> 
+            <button class="search-button" onclick="searchPosts()">검색</button> 
         </div>
     </c:if>
     

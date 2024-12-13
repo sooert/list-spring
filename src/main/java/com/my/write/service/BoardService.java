@@ -59,4 +59,9 @@ public class BoardService {
 	public int totalCount(String category) {
 		return boardDao.totalCount(category);
 	}
+
+	// 검색 기능
+	public List<Board> searchPosts(HashMap<String, Object> params) {
+		return boardDao.searchPosts(params);
+	}
 }

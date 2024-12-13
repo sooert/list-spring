@@ -23,8 +23,8 @@ public class LikeService {
 	}
 
 	// 좋아요 조회
-	public Like getByBoardIdx(int board_idx) {
-		return likeDao.getByBoardIdx(board_idx);
+	public Like findByBoardIdx(int board_idx) {
+		return likeDao.findByBoardIdx(board_idx);
 	}
 
 	// 좋아요 상태 확인

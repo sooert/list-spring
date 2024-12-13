@@ -17,7 +17,7 @@
 	</delete>
 	
 	<!-- 좋아요 조회 -->
-	<select id="getByBoardIdx" resultType="Like">
+	<select id="findByBoardIdx" resultType="Like">
 		SELECT board_idx, 
 			   COUNT(*) as count 
 		FROM `like` 

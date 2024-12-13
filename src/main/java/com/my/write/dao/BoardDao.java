@@ -59,4 +59,9 @@ public class BoardDao {
 		return s.selectOne("BoardMapper.totalCount", category);
 	}
 
+	// 검색 기능
+	public List<Board> searchPosts(HashMap<String, Object> params) {
+		return s.selectList("BoardMapper.searchPosts", params);
+	}
+
 }

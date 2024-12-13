@@ -69,8 +69,8 @@ async function checkDuplicate(type) {
 
     try {
         const response = await $.ajax({
-            url: `./api/user/getBy${type.charAt(0).toUpperCase() + type.slice(1)}`,
-            type: 'get',
+            url: `./api/user/findBy${type.charAt(0).toUpperCase() + type.slice(1)}`,
+            type: 'post',
             data: { 
                 [type]: value 
             }

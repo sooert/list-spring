@@ -186,4 +186,16 @@ public class BoardController {
 	public int totalCount(@RequestParam(required = false) String category) {
 		return boardService.totalCount(category);
 	}
+
+	// 검색 기능
+	@GetMapping("search")
+	public List<Board> searchPosts(@RequestParam(value = "category", required = false) String category,
+							       @RequestParam(value = "searchTerm", required = false) String searchTerm) {
+
+		HashMap<String, Object> params = new HashMap<>();
+		
+		if (category != null && !category.isEmpty()) params.put("category", category);
+		if (searchTerm != null && !searchTerm.isEmpty()) params.put("searchTerm", searchTerm);
+		return boardService.searchPosts(params);
+	}
 }
